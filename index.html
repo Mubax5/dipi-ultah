@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Website ulang tahun cinematic untuk Dipi dari Angkatan 4."
+      content="Website ulang tahun bergaya poster hitam untuk Dipi dari Angkatan 4."
     />
     <title>Happy Birthday, Dipi</title>
     <link rel="stylesheet" href="style.css" />
@@ -13,128 +13,167 @@
   <body>
     <a class="skip-link" href="#message">Lewati ke pesan</a>
 
-    <div class="site-bg" aria-hidden="true">
-      <div class="aurora aurora-one"></div>
-      <div class="aurora aurora-two"></div>
-      <div class="aurora aurora-three"></div>
-      <div class="grain"></div>
+    <div class="backdrop" aria-hidden="true">
+      <div class="spotlight" id="spotlight"></div>
+      <div class="texture-layer"></div>
+      <div class="scratch-layer"></div>
     </div>
     <div class="particle-field" id="particleField" aria-hidden="true"></div>
     <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
 
     <main>
       <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="float-token token-one" data-parallax="0.18">A4</div>
-        <div class="float-token token-two" data-parallax="0.12">100★</div>
-        <div class="float-token token-three" data-parallax="0.2">21</div>
-        <div class="float-token token-four" data-parallax="0.1">COMEBACK</div>
+        <div class="hero-poster" data-depth="0.16">
+          <div class="barcode" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <p class="poster-line reveal-load">DIPI // ANGKATAN 4 // 24</p>
 
-        <div class="hero-inner">
-          <p class="eyebrow reveal-load">Angkatan 4 · 21/24 tetap satu cerita</p>
-          <h1 class="sparkle-title reveal-load" id="hero-title">
-            <span>Happy</span>
-            <span>Birthday,</span>
-            <span>Dipi</span>
+          <h1 class="hero-title reveal-load" id="hero-title">
+            <span>Happy Birthday</span>
+            <strong>Dipi</strong>
           </h1>
-          <p class="hero-subtitle reveal-load" data-typewriter>
-            Level baru kebuka. Pelan-pelan, tapi tetap maju.
+
+          <p class="hero-copy reveal-load" data-typewriter>
+            Hari ini buat lo. Pelan-pelan juga tetap maju.
           </p>
+
           <div class="hero-actions reveal-load">
-            <a class="liquid-button" href="#message" data-scroll>
+            <a class="ink-button" href="#message" data-scroll>
               <span>Buka Pesan</span>
             </a>
+            <button class="ghost-button" type="button" id="quickIgnite">
+              Nyalain Vibes
+            </button>
           </div>
         </div>
       </section>
 
-      <section class="section about-section" aria-labelledby="about-title">
-        <div class="section-heading reveal-card">
-          <p class="section-kicker">Tentang Dipi</p>
-          <h2 id="about-title">Empat sisi, satu cerita.</h2>
+      <section class="section loadout-section" aria-labelledby="loadout-title">
+        <div class="section-intro reveal-card" data-depth="0.08">
+          <p class="overline">PLAYER FILE</p>
+          <h2 id="loadout-title">Dipi punya pattern sendiri.</h2>
+          <p>
+            Bukan bio panjang. Cuma beberapa hal yang bikin kita langsung inget:
+            court vision, anime arc, push rank, dan Angkatan 4.
+          </p>
         </div>
 
-        <div class="bento-grid">
-          <article class="bento-card reveal-card card-basket">
-            <div class="card-mark">01</div>
-            <h3>Basket</h3>
-            <p>Gerak cepat, baca arah, dan tetap main sampai akhir.</p>
-          </article>
+        <div class="loadout-grid" id="loadoutGrid">
+          <button
+            class="loadout-card reveal-card"
+            type="button"
+            data-detail="Baca arah, ambil ruang, tetap main sampai buzzer. Itu Dipi di court."
+          >
+            <span class="card-index">01</span>
+            <h3>Court Vision</h3>
+            <p>Basket ngajarin timing. Gerak dulu, ragu belakangan.</p>
+            <small>Tap kartu</small>
+          </button>
 
-          <article class="bento-card reveal-card card-anime">
-            <div class="card-mark">02</div>
-            <h3>Anime</h3>
-            <p>Setiap karakter punya arc-nya sendiri. Ini waktunya arc baru dimulai.</p>
-          </article>
+          <button
+            class="loadout-card reveal-card"
+            type="button"
+            data-detail="Setiap arc punya tempo. Arc baru Dipi mulai hari ini, tanpa perlu buru-buru."
+          >
+            <span class="card-index">02</span>
+            <h3>Anime Arc</h3>
+            <p>Karakter kuat tumbuh lewat scene kecil yang terus diulang.</p>
+            <small>Tap kartu</small>
+          </button>
 
-          <article class="bento-card reveal-card card-ml card-wide">
-            <div class="card-mark">03</div>
-            <h3>Mobile Legends</h3>
-            <p>
-              Bintang 100 bukan cuma angka. Itu bukti kalau Dipi bisa push jauh
-              kalau udah mulai jalan.
-            </p>
-          </article>
+          <button
+            class="loadout-card reveal-card"
+            type="button"
+            data-detail="Bintang 100 jadi bukti: kalau Dipi mulai push, jaraknya bisa jauh."
+          >
+            <span class="card-index">03</span>
+            <h3>Mythic Memory</h3>
+            <p>Seratus bintang bukan angka random. Itu jam terbang.</p>
+            <small>Tap kartu</small>
+          </button>
 
-          <article class="bento-card reveal-card card-generation card-wide">
-            <div class="card-mark">04</div>
-            <h3>Angkatan 4</h3>
-            <p>
-              Dari 24 jadi 21, tapi cerita kita masih jalan. Dan Dipi tetap
-              bagian dari cerita itu.
-            </p>
-          </article>
+          <button
+            class="loadout-card reveal-card"
+            type="button"
+            data-detail="Angkatan 4 tetap punya tempat buat Dipi. Cerita ini belum selesai."
+          >
+            <span class="card-index">04</span>
+            <h3>A4 Signal</h3>
+            <p>Lo tetap masuk cerita. Kita tetap kenal tempat lo di sana.</p>
+            <small>Tap kartu</small>
+          </button>
         </div>
+
+        <p class="card-feedback reveal-card" id="cardFeedback" aria-live="polite">
+          Tap salah satu kartu. Biar detailnya kebuka.
+        </p>
       </section>
 
       <section class="section message-section" id="message" aria-labelledby="message-title">
-        <div class="message-card reveal-card">
-          <p class="section-kicker">Message Card</p>
-          <h2 id="message-title">Buat Dipi</h2>
+        <article class="message-paper reveal-card" data-depth="0.1">
+          <p class="overline">OPEN NOTE</p>
+          <h2 id="message-title">Hari ini ngerayain Dipi.</h2>
           <div class="message-copy">
             <p>Dipi, selamat ulang tahun.</p>
             <p>
-              Semoga umur baru ini jadi titik yang lebih tenang, lebih kuat, dan
-              lebih ringan buat dijalanin.
+              Semoga umur baru ini ngasih lo ruang yang lebih tenang, langkah
+              yang lebih ringan, dan alasan kecil buat mulai lagi.
             </p>
-            <p>Gak harus buru-buru. Gak harus langsung sempurna.</p>
-            <p>Yang penting tetap jalan, satu langkah dulu.</p>
+            <p>Gak perlu kebut. Satu langkah yang lo ambil tetap dihitung.</p>
             <p>
-              Lo tetap bagian dari Angkatan 4, tetap teman kami, dan tetap punya
+              Lo tetap bagian dari Angkatan 4. Tetap teman kami. Tetap punya
               tempat di cerita ini.
             </p>
-            <p>Semoga hal-hal baik pelan-pelan nemuin jalannya ke lo.</p>
+            <p>
+              Semoga hal baik datang pelan-pelan, tapi pas waktunya nyampe,
+              lo bisa ngerasa: iya, ini punya gue.
+            </p>
           </div>
-        </div>
+        </article>
       </section>
 
-      <section class="section lights-section" aria-labelledby="lights-title">
-        <div class="section-heading reveal-card">
-          <p class="section-kicker">21 Lights</p>
-          <h2 id="lights-title">21 orang, satu cerita.</h2>
-          <p class="section-lead">
-            Tiap cahaya kecil nyimpen vibe yang sama: Dipi masih bagian dari
-            Angkatan 4.
+      <section class="section signal-section" aria-labelledby="signal-title">
+        <div class="section-intro reveal-card" data-depth="0.06">
+          <p class="overline">A4 SIGNAL</p>
+          <h2 id="signal-title">24 titik. Satu cerita.</h2>
+          <p>
+            Tap titik mana aja. Pesannya pendek, tapi arahnya sama: kami tetap
+            ada, dan lo tetap di dalamnya.
           </p>
         </div>
 
-        <div class="lights-grid reveal-card" id="lightsGrid" aria-label="21 lights"></div>
+        <div class="signal-board reveal-card" id="signalBoard" aria-label="24 sinyal Angkatan 4"></div>
+        <p class="signal-text reveal-card" id="signalText" aria-live="polite">
+          Pilih satu titik buat buka sinyal.
+        </p>
       </section>
 
-      <section class="section vibe-section" aria-labelledby="vibe-title">
-        <div class="vibe-panel reveal-card">
-          <p class="section-kicker">Birthday Interaction</p>
-          <h2 id="vibe-title">Level baru dimulai.</h2>
-          <p class="vibe-text" id="vibeText">Satu tap buat nyalain momen hari ini.</p>
-          <button class="liquid-button vibe-button" id="vibeButton" type="button">
-            <span>Tap buat nyalain vibes</span>
-          </button>
+      <section class="section ignite-section" aria-labelledby="ignite-title">
+        <div class="ignite-panel reveal-card">
+          <div class="orbit" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="ignite-copy">
+            <p class="overline">LAST MOVE</p>
+            <h2 id="ignite-title">Nyalain mode malam.</h2>
+            <p id="vibeText">
+              Tap atau tahan tombolnya. Kalau glow naik, vibes ikut kebuka.
+            </p>
+            <button class="hold-button" type="button" id="vibeButton">
+              <span class="button-label">Nyalain vibes</span>
+              <span class="hold-fill" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>Made for Dipi — from Angkatan 4</p>
-      <small>angkatan 4! udah ngapa-ngapa.</small>
+      <p>Made for Dipi - from Angkatan 4</p>
+      <small>24 tetap satu cerita.</small>
     </footer>
 
     <script src="script.js"></script>

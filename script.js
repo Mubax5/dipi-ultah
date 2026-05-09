@@ -5,24 +5,29 @@
   root.classList.add("js-enabled");
 
   const particleField = document.querySelector("#particleField");
-  const lightsGrid = document.querySelector("#lightsGrid");
-  const vibeButton = document.querySelector("#vibeButton");
-  const vibeText = document.querySelector("#vibeText");
   const confettiLayer = document.querySelector("#confettiLayer");
-  const liquidButtons = document.querySelectorAll(".liquid-button");
-  const parallaxItems = document.querySelectorAll("[data-parallax]");
   const typeTarget = document.querySelector("[data-typewriter]");
+  const signalBoard = document.querySelector("#signalBoard");
+  const signalText = document.querySelector("#signalText");
+  const cardFeedback = document.querySelector("#cardFeedback");
+  const vibeButton = document.querySelector("#vibeButton");
+  const quickIgnite = document.querySelector("#quickIgnite");
+  const vibeText = document.querySelector("#vibeText");
+  const parallaxItems = document.querySelectorAll("[data-depth]");
+  const magneticItems = document.querySelectorAll(".ink-button, .loadout-card");
 
-  const microTexts = [
-    "Still here",
-    "One squad",
-    "Keep going",
-    "New chapter",
-    "You got this",
-    "Angkatan 4",
+  const signalMessages = [
+    "Still here.",
+    "Angkatan 4 tetap ada.",
+    "Lo tetap masuk cerita.",
+    "Pelan-pelan, tetap maju.",
+    "Comeback bisa mulai kapan aja.",
+    "Hari ini punya Dipi.",
+    "Satu langkah dulu.",
+    "New level kebuka.",
   ];
 
-  const confettiColors = ["#ffd58a", "#54c2ff", "#8d7dff", "#77f3ff", "#f7f8ff"];
+  const confettiColors = ["#f4f1e8", "#d8b35f", "#8fc7ff", "#9c988d"];
 
   const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
@@ -45,22 +50,25 @@
       if (index >= text.length) {
         window.clearInterval(timer);
       }
-    }, 32);
+    }, 28);
   }
 
-  function buildParticles() {
+  function buildDust() {
     if (!particleField || reduceMotion) return;
 
     const fragment = document.createDocumentFragment();
-    const count = window.innerWidth < 640 ? 34 : 64;
+    const count = window.innerWidth < 680 ? 28 : 54;
 
     for (let index = 0; index < count; index += 1) {
       const particle = document.createElement("span");
       particle.className = "particle";
       particle.style.left = `${randomBetween(0, 100)}%`;
       particle.style.top = `${randomBetween(0, 100)}%`;
-      particle.style.setProperty("--duration", `${randomBetween(6, 13)}s`);
-      particle.style.setProperty("--delay", `${randomBetween(-9, 0)}s`);
+      particle.style.setProperty("--w", `${randomBetween(1, 3)}px`);
+      particle.style.setProperty("--h", `${randomBetween(8, 26)}px`);
+      particle.style.setProperty("--r", `${randomBetween(-18, 18)}deg`);
+      particle.style.setProperty("--duration", `${randomBetween(5, 12)}s`);
+      particle.style.setProperty("--delay", `${randomBetween(-8, 0)}s`);
       fragment.appendChild(particle);
     }
 
@@ -69,7 +77,6 @@
 
   function setupScrollReveal() {
     const items = document.querySelectorAll(".reveal-card");
-
     if (!items.length) return;
 
     if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -85,7 +92,7 @@
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.14, rootMargin: "0px 0px -10% 0px" }
     );
 
     items.forEach((item) => observer.observe(item));
@@ -96,146 +103,196 @@
       link.addEventListener("click", (event) => {
         const targetId = link.getAttribute("href");
         const target = targetId ? document.querySelector(targetId) : null;
-
         if (!target) return;
+
         event.preventDefault();
         target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
       });
     });
   }
 
-  function setupLiquidButtons() {
-    liquidButtons.forEach((button) => {
-      button.addEventListener("pointermove", (event) => {
-        const rect = button.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width) * 100;
-        const y = ((event.clientY - rect.top) / rect.height) * 100;
-        button.style.setProperty("--mx", `${x}%`);
-        button.style.setProperty("--my", `${y}%`);
-      });
-    });
-  }
-
-  function buildLights() {
-    if (!lightsGrid) return;
-
-    const fragment = document.createDocumentFragment();
-
-    for (let index = 0; index < 21; index += 1) {
-      const button = document.createElement("button");
-      const core = document.createElement("span");
-      const label = document.createElement("span");
-      const text = microTexts[index % microTexts.length];
-
-      button.type = "button";
-      button.className = "light-orb";
-      button.setAttribute("aria-label", `Light ${index + 1}: ${text}`);
-      button.style.setProperty("--delay", `${index * -0.13}s`);
-
-      core.className = "light-core";
-      label.className = "orb-label";
-      label.textContent = text;
-
-      button.append(core, label);
-
-      button.addEventListener("pointerenter", () => setLightMessage(button, label, index));
-      button.addEventListener("focus", () => setLightMessage(button, label, index));
-      button.addEventListener("click", () => {
-        setLightMessage(button, label, index);
-        pulseActive(button);
-      });
-
-      fragment.appendChild(button);
-    }
-
-    lightsGrid.appendChild(fragment);
-  }
-
-  function setLightMessage(button, label, index) {
-    const text = microTexts[(index + Math.floor(Math.random() * microTexts.length)) % microTexts.length];
-    label.textContent = text;
-    button.setAttribute("aria-label", `Light ${index + 1}: ${text}`);
-  }
-
-  function pulseActive(button) {
-    button.classList.add("is-active");
-    window.setTimeout(() => button.classList.remove("is-active"), 900);
-  }
-
   function setupParallax() {
-    if (!parallaxItems.length || reduceMotion) return;
+    if (reduceMotion) return;
 
     let pointerX = 0;
     let pointerY = 0;
+    let scrollY = window.scrollY;
     let rafId = null;
 
     function update() {
+      root.style.setProperty("--px", `${50 + pointerX * 12}%`);
+      root.style.setProperty("--py", `${38 + pointerY * 12}%`);
+
       parallaxItems.forEach((item) => {
-        const speed = Number(item.dataset.parallax || 0.12);
-        item.style.translate = `${pointerX * speed}px ${pointerY * speed}px`;
+        const depth = Number(item.dataset.depth || 0.08);
+        const x = pointerX * depth * 42;
+        const y = pointerY * depth * 34 - scrollY * depth * 0.08;
+        item.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
+
       rafId = null;
+    }
+
+    function requestUpdate() {
+      if (!rafId) rafId = window.requestAnimationFrame(update);
     }
 
     window.addEventListener(
       "pointermove",
       (event) => {
-        pointerX = (event.clientX / window.innerWidth - 0.5) * 28;
-        pointerY = (event.clientY / window.innerHeight - 0.5) * 28;
-
-        if (!rafId) rafId = window.requestAnimationFrame(update);
+        pointerX = event.clientX / window.innerWidth - 0.5;
+        pointerY = event.clientY / window.innerHeight - 0.5;
+        requestUpdate();
       },
       { passive: true }
     );
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        scrollY = window.scrollY;
+        requestUpdate();
+      },
+      { passive: true }
+    );
+  }
+
+  function setupMagneticInk() {
+    magneticItems.forEach((item) => {
+      item.addEventListener("pointermove", (event) => {
+        const rect = item.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        item.style.setProperty("--mx", `${x}%`);
+        item.style.setProperty("--my", `${y}%`);
+      });
+    });
+  }
+
+  function setupCards() {
+    const cards = document.querySelectorAll(".loadout-card");
+    if (!cards.length || !cardFeedback) return;
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        cards.forEach((item) => item.classList.remove("is-active"));
+        card.classList.add("is-active");
+        cardFeedback.textContent = card.dataset.detail || "";
+      });
+    });
+  }
+
+  function buildSignals() {
+    if (!signalBoard || !signalText) return;
+
+    const fragment = document.createDocumentFragment();
+
+    for (let index = 0; index < 24; index += 1) {
+      const button = document.createElement("button");
+      const message = signalMessages[index % signalMessages.length];
+
+      button.type = "button";
+      button.className = "signal-dot";
+      button.setAttribute("aria-label", `Sinyal ${index + 1}: ${message}`);
+      button.style.setProperty("--delay", `${index * -0.09}s`);
+      button.addEventListener("click", () => {
+        const nextMessage = signalMessages[(index + Math.floor(Math.random() * signalMessages.length)) % signalMessages.length];
+        document.querySelectorAll(".signal-dot").forEach((dot) => dot.classList.remove("is-active"));
+        button.classList.add("is-active");
+        button.setAttribute("aria-label", `Sinyal ${index + 1}: ${nextMessage}`);
+        signalText.textContent = nextMessage;
+      });
+
+      fragment.appendChild(button);
+    }
+
+    signalBoard.appendChild(fragment);
   }
 
   function launchConfetti() {
     if (!confettiLayer || reduceMotion) return;
 
     const fragment = document.createDocumentFragment();
-    const count = window.innerWidth < 640 ? 28 : 46;
+    const count = window.innerWidth < 680 ? 26 : 42;
 
     for (let index = 0; index < count; index += 1) {
       const piece = document.createElement("span");
-      const color = confettiColors[index % confettiColors.length];
-      const width = randomBetween(5, 8);
-      const height = randomBetween(8, 16);
-
       piece.className = "confetti-piece";
-      piece.style.setProperty("--left", `${randomBetween(6, 94)}%`);
-      piece.style.setProperty("--fall-x", `${randomBetween(-90, 90)}px`);
-      piece.style.setProperty("--rotation", `${randomBetween(160, 560)}deg`);
-      piece.style.setProperty("--fall-duration", `${randomBetween(1.35, 2.25)}s`);
-      piece.style.setProperty("--fall-delay", `${randomBetween(0, 0.18)}s`);
-      piece.style.setProperty("--confetti-color", color);
-      piece.style.setProperty("--w", `${width}px`);
-      piece.style.setProperty("--h", `${height}px`);
+      piece.style.setProperty("--left", `${randomBetween(8, 92)}%`);
+      piece.style.setProperty("--fall-x", `${randomBetween(-80, 80)}px`);
+      piece.style.setProperty("--rotation", `${randomBetween(160, 540)}deg`);
+      piece.style.setProperty("--fall-duration", `${randomBetween(1.25, 2.1)}s`);
+      piece.style.setProperty("--fall-delay", `${randomBetween(0, 0.16)}s`);
+      piece.style.setProperty("--confetti-color", confettiColors[index % confettiColors.length]);
+      piece.style.setProperty("--w", `${randomBetween(2, 5)}px`);
+      piece.style.setProperty("--h", `${randomBetween(12, 24)}px`);
       fragment.appendChild(piece);
     }
 
     confettiLayer.appendChild(fragment);
-
-    window.setTimeout(() => {
-      confettiLayer.replaceChildren();
-    }, 2600);
+    window.setTimeout(() => confettiLayer.replaceChildren(), 2400);
   }
 
-  function setupVibes() {
-    if (!vibeButton || !vibeText) return;
+  function igniteVibes() {
+    document.body.classList.add("vibes-on");
+    if (vibeText) vibeText.textContent = "Hari ini buat Dipi. Enjoy the new level.";
+    launchConfetti();
+  }
 
-    vibeButton.addEventListener("click", () => {
-      document.body.classList.add("vibes-on");
-      vibeText.textContent = "Hari ini buat Dipi. Enjoy the new level.";
-      launchConfetti();
+  function setupVibeButton() {
+    if (!vibeButton) return;
+
+    let holdTimer = 0;
+    let triggered = false;
+    let pointerStarted = false;
+
+    const startHold = () => {
+      triggered = false;
+      pointerStarted = true;
+      vibeButton.classList.add("is-holding");
+      holdTimer = window.setTimeout(() => {
+        triggered = true;
+        igniteVibes();
+      }, 680);
+    };
+
+    const endHold = () => {
+      window.clearTimeout(holdTimer);
+      vibeButton.classList.remove("is-holding");
+
+      if (!triggered) igniteVibes();
+      window.setTimeout(() => {
+        pointerStarted = false;
+      }, 0);
+    };
+
+    vibeButton.addEventListener("pointerdown", startHold);
+    vibeButton.addEventListener("pointerup", endHold);
+    vibeButton.addEventListener("pointercancel", () => {
+      window.clearTimeout(holdTimer);
+      vibeButton.classList.remove("is-holding");
+      pointerStarted = false;
     });
+    vibeButton.addEventListener("pointerleave", () => {
+      window.clearTimeout(holdTimer);
+      vibeButton.classList.remove("is-holding");
+    });
+    vibeButton.addEventListener("click", () => {
+      if (!pointerStarted) igniteVibes();
+    });
+
+    if (quickIgnite) {
+      quickIgnite.addEventListener("click", igniteVibes);
+    }
   }
 
   setupTypewriter();
-  buildParticles();
+  buildDust();
   setupScrollReveal();
   setupSmoothScroll();
-  setupLiquidButtons();
-  buildLights();
   setupParallax();
-  setupVibes();
+  setupMagneticInk();
+  setupCards();
+  buildSignals();
+  setupVibeButton();
 })();
