@@ -31,11 +31,11 @@ body {
   margin: 0;
   background: var(--black);
   color: var(--white);
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   line-height: 1.55;
   overflow-x: hidden;
+  --scroll-shift: 0px;
+  --scroll-shift-rev: 0px;
 }
 
 body::before {
@@ -130,6 +130,7 @@ button {
     radial-gradient(rgba(255, 255, 255, 0.14) 0.7px, transparent 0.7px);
   background-position: 0 0, 0.85rem 0.55rem;
   background-size: 0.22rem 0.22rem, 0.31rem 0.31rem;
+  transform: translate3d(0, var(--scroll-shift), 0);
 }
 
 .scratch-layer {
@@ -138,6 +139,7 @@ button {
     linear-gradient(103deg, transparent 0 24%, rgba(255, 255, 255, 0.18) 24.1% 24.25%, transparent 24.35% 100%),
     linear-gradient(84deg, transparent 0 64%, rgba(255, 255, 255, 0.12) 64.1% 64.2%, transparent 64.35% 100%),
     repeating-linear-gradient(0deg, transparent 0 0.42rem, rgba(255, 255, 255, 0.035) 0.43rem 0.46rem);
+  transform: translate3d(0, var(--scroll-shift-rev), 0);
 }
 
 .particle-field {
@@ -176,9 +178,30 @@ button {
   width: 100%;
   max-width: 20.5rem;
   min-width: 0;
-  min-height: 34.5rem;
+  min-height: min(42rem, calc(100svh - 4.5rem));
+  border: 0;
+  border-radius: 8px;
+  perspective: 1300px;
+  isolation: isolate;
+}
+
+.hero-card-inner {
+  position: relative;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  transition: transform 850ms var(--ease);
+}
+
+.hero-poster.is-message-open .hero-card-inner {
+  transform: rotateY(180deg);
+}
+
+.hero-face {
+  position: absolute;
+  inset: 0;
   display: grid;
   align-content: center;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
@@ -186,29 +209,56 @@ button {
     radial-gradient(circle at 50% 30%, rgba(244, 241, 232, 0.1), transparent 18rem),
     rgba(255, 255, 255, 0.025);
   box-shadow: var(--shadow);
-  padding: 3.5rem 1.1rem 2rem;
+  backface-visibility: hidden;
   isolation: isolate;
+  padding: 3.5rem 1.1rem 2rem;
 }
 
-.hero-poster::before,
-.hero-poster::after {
+.hero-face::before,
+.hero-face::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.hero-poster::before {
+.hero-face::before {
   z-index: -1;
   background:
     linear-gradient(135deg, transparent 0 45%, rgba(216, 179, 95, 0.1) 45.2% 45.55%, transparent 45.8%),
     linear-gradient(20deg, transparent 0 68%, rgba(255, 255, 255, 0.08) 68.2% 68.35%, transparent 68.6%);
+  animation: cardSheen 7s ease-in-out infinite alternate;
 }
 
-.hero-poster::after {
+.hero-face::after {
   border: 1px solid rgba(244, 241, 232, 0.08);
   border-radius: inherit;
   transform: translate(0.45rem, 0.45rem);
+}
+
+.hero-back {
+  align-content: start;
+  background:
+    linear-gradient(180deg, rgba(216, 179, 95, 0.11), rgba(244, 241, 232, 0.028)),
+    radial-gradient(circle at 15% 20%, rgba(244, 241, 232, 0.1), transparent 13rem),
+    #10100f;
+  overflow-y: auto;
+  scrollbar-width: none;
+  transform: rotateY(180deg);
+}
+
+.hero-back::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-back .overline,
+.hero-back h2 {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-back h2 {
+  font-size: 2.25rem;
 }
 
 .barcode {
@@ -239,8 +289,7 @@ button {
 .overline,
 .card-index,
 .site-footer small {
-  font-family:
-    "Arial Narrow", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -310,6 +359,7 @@ button {
   border-radius: 8px;
   color: var(--white);
   cursor: pointer;
+  font-family: inherit;
   font-weight: 850;
   letter-spacing: 0;
   text-decoration: none;
@@ -334,23 +384,60 @@ button {
 }
 
 .ink-button::before,
+.ghost-button::before,
 .hold-button::before {
   content: "";
   position: absolute;
   inset: -70%;
   background: conic-gradient(from 110deg, transparent, rgba(244, 241, 232, 0.22), transparent 38%);
+  opacity: 0.68;
   transform: rotate(0deg);
+  transition: opacity 240ms var(--ease);
   animation: liquidSweep 7s linear infinite;
 }
 
 .ink-button span,
+.ghost-button span,
 .hold-button .button-label {
   position: relative;
   z-index: 1;
 }
 
 .ghost-button {
-  background: transparent;
+  background:
+    linear-gradient(120deg, transparent 0 44%, rgba(244, 241, 232, 0.08) 44.4% 44.8%, transparent 45.2%),
+    rgba(244, 241, 232, 0.028);
+}
+
+.hero-button {
+  min-height: 3.55rem;
+  box-shadow:
+    inset 0 0 0 1px rgba(244, 241, 232, 0.06),
+    0 16px 40px rgba(0, 0, 0, 0.32);
+}
+
+.hero-button::after {
+  content: "";
+  position: absolute;
+  inset: 0.42rem;
+  border: 1px solid rgba(216, 179, 95, 0.16);
+  border-radius: 6px;
+  opacity: 0;
+  transform: scaleX(0.88);
+  transition:
+    opacity 260ms var(--ease),
+    transform 260ms var(--ease);
+}
+
+.hero-button:hover::before,
+.hero-button:focus-visible::before {
+  opacity: 1;
+}
+
+.hero-button:hover::after,
+.hero-button:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .ink-button:hover,
@@ -363,7 +450,8 @@ button {
 .ink-button:focus-visible,
 .ghost-button:focus-visible,
 .hold-button:focus-visible,
-.loadout-card:focus-visible,
+.flip-trigger:focus-visible,
+.carousel-arrow:focus-visible,
 .signal-dot:focus-visible {
   outline: 3px solid rgba(216, 179, 95, 0.9);
   outline-offset: 4px;
@@ -388,7 +476,7 @@ button {
 }
 
 .section-intro h2,
-.message-paper h2,
+.hero-back h2,
 .ignite-copy h2 {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
@@ -400,18 +488,32 @@ button {
 
 .section-intro p:not(.overline),
 .ignite-copy p,
-.message-copy {
+.hero-message-copy {
   color: var(--paper);
   font-size: 1rem;
 }
 
-.loadout-grid {
-  display: grid;
-  gap: 0.8rem;
+.hero-message-copy {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.42;
 }
 
-.loadout-card,
-.message-paper,
+.hero-message-copy p {
+  margin: 0 0 0.68rem;
+}
+
+.hero-message-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.close-message {
+  align-self: end;
+  margin-top: 1rem;
+}
+
 .ignite-panel {
   position: relative;
   overflow: hidden;
@@ -423,15 +525,6 @@ button {
   box-shadow: 0 18px 65px rgba(0, 0, 0, 0.58);
 }
 
-.loadout-card {
-  min-height: 13.5rem;
-  padding: 1rem;
-  color: var(--white);
-  text-align: left;
-}
-
-.loadout-card::before,
-.message-paper::before,
 .ignite-panel::before {
   content: "";
   position: absolute;
@@ -443,11 +536,185 @@ button {
   transition: opacity 260ms var(--ease);
 }
 
-.loadout-card:hover::before,
-.loadout-card.is-active::before,
-.message-paper:hover::before,
 .ignite-panel:hover::before {
   opacity: 1;
+}
+
+.carousel-shell {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-head {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.carousel-arrow {
+  position: relative;
+  min-height: 2.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(216, 179, 95, 0.18), transparent 5rem),
+    rgba(244, 241, 232, 0.035);
+  color: var(--paper);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 800;
+  overflow: hidden;
+  padding: 0.5rem 0.9rem;
+  transition:
+    border-color 220ms var(--ease),
+    box-shadow 220ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.carousel-arrow::before,
+.flip-trigger::before {
+  content: "";
+  position: absolute;
+  inset: -80%;
+  background: conic-gradient(from 70deg, transparent, rgba(244, 241, 232, 0.32), transparent 34%);
+  opacity: 0;
+  transition: opacity 220ms var(--ease);
+  animation: liquidSweep 7s linear infinite;
+}
+
+.carousel-arrow:hover,
+.flip-trigger:hover {
+  border-color: var(--paper);
+  box-shadow: 0 0 28px rgba(216, 179, 95, 0.18);
+  transform: translateY(-2px);
+}
+
+.carousel-arrow:hover::before,
+.flip-trigger:hover::before {
+  opacity: 1;
+}
+
+.loadout-carousel {
+  display: flex;
+  gap: 1rem;
+  margin-inline: -1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 1rem;
+  perspective: 1200px;
+  scroll-padding-inline: 1rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.loadout-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.loadout-card {
+  --tilt: -2.6deg;
+  --lift: 0rem;
+  position: relative;
+  flex: 0 0 min(82vw, 19rem);
+  min-height: 18.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  scroll-snap-align: center;
+  transform-style: preserve-3d;
+  transition:
+    filter 260ms var(--ease),
+    transform 260ms var(--ease);
+}
+
+.loadout-card:nth-child(2) {
+  --tilt: 2.2deg;
+}
+
+.loadout-card:nth-child(3) {
+  --tilt: -1.2deg;
+}
+
+.loadout-card:nth-child(4) {
+  --tilt: 2.8deg;
+}
+
+.loadout-card.reveal-card {
+  opacity: 0;
+  transform: translate3d(0, 1.4rem, 0) rotate(var(--tilt));
+}
+
+.loadout-card.reveal-card.is-visible {
+  opacity: 1;
+  transform: translate3d(0, var(--lift), 0) rotate(var(--tilt));
+}
+
+.loadout-card.reveal-card.is-visible:hover,
+.loadout-card.reveal-card.is-visible.is-flipped,
+.loadout-card.reveal-card.is-visible:active {
+  --lift: -0.35rem;
+  filter: drop-shadow(0 0 24px rgba(216, 179, 95, 0.24));
+  transform: translate3d(0, var(--lift), 0) rotate(calc(var(--tilt) * -1)) rotateX(4deg);
+}
+
+.card-flip {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  transition: transform 720ms var(--ease);
+}
+
+.loadout-card.is-flipped .card-flip {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(244, 241, 232, 0.1), rgba(244, 241, 232, 0.018)),
+    radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(216, 179, 95, 0.14), transparent 11rem),
+    #101010;
+  box-shadow: 0 18px 65px rgba(0, 0, 0, 0.58);
+  backface-visibility: hidden;
+  padding: 1rem;
+}
+
+.card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(118deg, transparent 0 58%, rgba(244, 241, 232, 0.1) 58.2% 58.45%, transparent 58.7%),
+    radial-gradient(rgba(255, 255, 255, 0.14) 0.8px, transparent 0.8px);
+  background-size: auto, 0.28rem 0.28rem;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.card-back {
+  background:
+    linear-gradient(145deg, rgba(216, 179, 95, 0.12), rgba(244, 241, 232, 0.026)),
+    #12110f;
+  transform: rotateY(180deg);
 }
 
 .card-index {
@@ -459,36 +726,82 @@ button {
 .loadout-card h3 {
   position: relative;
   z-index: 1;
-  margin: 3rem 0 0.55rem;
+  margin: auto 0 0.55rem;
   color: var(--white);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.75rem;
-  line-height: 0.98;
+  font-size: 1.95rem;
+  font-style: italic;
+  line-height: 0.95;
   letter-spacing: 0;
 }
 
 .loadout-card p {
   position: relative;
   z-index: 1;
-  margin: 0;
+  margin: 0 0 1rem;
   color: var(--muted);
 }
 
-.loadout-card small {
-  position: absolute;
-  right: 1rem;
-  bottom: 0.9rem;
-  color: var(--quiet);
-  font-size: 0.72rem;
+.flip-trigger {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  min-height: 2.7rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  border: 1px solid rgba(244, 241, 232, 0.32);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(216, 179, 95, 0.22), transparent 5rem),
+    rgba(244, 241, 232, 0.035);
+  color: var(--white);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-style: italic;
   font-weight: 800;
-  text-transform: uppercase;
+  overflow: hidden;
+  padding: 0.45rem 0.9rem;
+  transition:
+    border-color 220ms var(--ease),
+    box-shadow 220ms var(--ease),
+    transform 220ms var(--ease);
 }
 
-.loadout-card.is-active {
-  border-color: var(--line-strong);
-  background:
-    linear-gradient(180deg, rgba(244, 241, 232, 0.11), rgba(244, 241, 232, 0.03)),
-    var(--panel-strong);
+.flip-trigger span {
+  position: relative;
+  z-index: 1;
+}
+
+.flip-trigger::after {
+  content: "*";
+  position: relative;
+  z-index: 1;
+  margin-left: 0.55rem;
+  color: var(--gold);
+  font-style: normal;
+}
+
+.flip-trigger.is-back::after {
+  content: "x";
+}
+
+.carousel-meter {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(244, 241, 232, 0.1);
+}
+
+.carousel-meter span {
+  display: block;
+  width: 25%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--gold), var(--paper));
+  transform: translateX(0);
+  transition: transform 240ms var(--ease), width 240ms var(--ease);
 }
 
 .card-feedback,
@@ -499,52 +812,32 @@ button {
   padding-left: 0.8rem;
 }
 
-.message-section {
-  display: grid;
-  min-height: 88svh;
-  place-items: center;
-  scroll-margin-top: 1rem;
-}
-
-.message-paper {
-  width: min(100%, 50rem);
-  padding: 1.25rem;
-}
-
-.message-copy {
-  position: relative;
-  z-index: 1;
-  margin-top: 1.35rem;
-}
-
-.message-copy p {
-  margin: 0 0 0.95rem;
-}
-
-.message-copy p:last-child {
-  margin-bottom: 0;
-}
-
 .signal-board {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.7rem;
+  position: relative;
+  min-height: 22rem;
   margin-top: 1.5rem;
 }
 
 .signal-dot {
-  position: relative;
+  --x: 50%;
+  --y: 50%;
+  --size: 2.25rem;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
   display: grid;
-  min-height: 3.1rem;
+  width: var(--size);
+  height: var(--size);
   place-items: center;
-  border: 1px solid rgba(244, 241, 232, 0.1);
-  border-radius: 8px;
-  background: rgba(244, 241, 232, 0.035);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
   cursor: pointer;
+  transform: translate(-50%, -50%);
   transition:
+    filter 240ms var(--ease),
     transform 240ms var(--ease),
-    border-color 240ms var(--ease),
-    background 240ms var(--ease);
+    opacity 240ms var(--ease);
 }
 
 .signal-dot::before {
@@ -555,7 +848,8 @@ button {
   background: var(--paper);
   box-shadow:
     0 0 12px rgba(244, 241, 232, 0.8),
-    0 0 30px rgba(216, 179, 95, 0.22);
+    0 0 30px rgba(216, 179, 95, 0.22),
+    0 0 54px rgba(143, 199, 255, 0.12);
   opacity: 0.72;
   transform: scale(0.82);
   animation: signalPulse 3.6s ease-in-out infinite;
@@ -564,9 +858,9 @@ button {
 
 .signal-dot:hover,
 .signal-dot.is-active {
-  border-color: var(--line-strong);
-  background: rgba(216, 179, 95, 0.09);
-  transform: translateY(-3px);
+  filter: drop-shadow(0 0 20px rgba(216, 179, 95, 0.42));
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.28);
 }
 
 .signal-dot:hover::before,
@@ -712,6 +1006,18 @@ button {
   }
 }
 
+@keyframes cardSheen {
+  from {
+    opacity: 0.55;
+    transform: translate3d(-0.55rem, 0, 0) skewX(-4deg);
+  }
+
+  to {
+    opacity: 0.92;
+    transform: translate3d(0.55rem, 0, 0) skewX(4deg);
+  }
+}
+
 @keyframes dustMove {
   0%,
   100% {
@@ -780,6 +1086,9 @@ button {
   .hero-poster {
     max-width: 46rem;
     min-height: 40rem;
+  }
+
+  .hero-face {
     padding: 4.5rem 1.7rem 2.4rem;
   }
 
@@ -798,17 +1107,21 @@ button {
     padding-inline: 1.25rem;
   }
 
-  .loadout-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .carousel-head {
+    align-items: center;
+    grid-template-columns: 1fr auto;
   }
 
-  .message-paper,
+  .loadout-card {
+    flex-basis: min(45vw, 20rem);
+  }
+
   .ignite-panel {
     padding: 1.75rem;
   }
 
   .signal-board {
-    grid-template-columns: repeat(8, 1fr);
+    min-height: 24rem;
   }
 
   .ignite-panel {
@@ -820,6 +1133,9 @@ button {
   .hero-poster {
     max-width: 64rem;
     min-height: 42rem;
+  }
+
+  .hero-face {
     padding: 5.4rem 2.4rem 3rem;
   }
 
@@ -836,22 +1152,17 @@ button {
   }
 
   .section-intro h2,
-  .message-paper h2,
+  .hero-back h2,
   .ignite-copy h2 {
     font-size: 3.5rem;
   }
 
-  .loadout-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .loadout-card:nth-child(2),
-  .loadout-card:nth-child(4) {
-    transform: translateY(1.4rem);
+  .loadout-card {
+    flex-basis: 21rem;
   }
 
   .signal-board {
-    grid-template-columns: repeat(12, 1fr);
+    min-height: 26rem;
   }
 }
 
