@@ -30,13 +30,13 @@
 
   const signalMessages = [
     "Still here.",
-    "Angkatan 4 tetap ada.",
-    "Lo tetap masuk cerita.",
-    "Pelan-pelan, tetap maju.",
-    "Comeback bisa mulai kapan aja.",
-    "Hari ini punya Dipi.",
-    "Satu langkah dulu.",
-    "New level kebuka.",
+    "Angkatan 4 itu kasur umang.",
+    "Apa sih yang enggak buat elu, dip.",
+    "Pelan-pelan aja co.",
+    "Comeback yok.",
+    "Hari ini punya Dipi, eh.. kemaren ding.",
+    "Maap telat ngucapin, dip.",
+    "Hbd dip, ngopi lah.",
   ];
 
   const confettiColors = ["#f4f1e8", "#d8b35f", "#8fc7ff", "#9c988d"];

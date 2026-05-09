@@ -44,11 +44,21 @@ body::before {
   inset: 0;
   z-index: -3;
   background:
-    radial-gradient(circle at var(--px) var(--py), rgba(216, 179, 95, 0.16), transparent 18rem),
-    radial-gradient(circle at 70% 10%, rgba(143, 199, 255, 0.09), transparent 17rem),
+    radial-gradient(
+      circle at var(--px) var(--py),
+      rgba(216, 179, 95, 0.16),
+      transparent 18rem
+    ),
+    radial-gradient(
+      circle at 70% 10%,
+      rgba(143, 199, 255, 0.09),
+      transparent 17rem
+    ),
     linear-gradient(180deg, #080808 0%, #020202 42%, #090909 100%);
   pointer-events: none;
-  transition: filter 500ms var(--ease), opacity 500ms var(--ease);
+  transition:
+    filter 500ms var(--ease),
+    opacity 500ms var(--ease);
 }
 
 body.vibes-on::before {
@@ -80,7 +90,9 @@ button {
   color: var(--white);
   opacity: 0;
   transform: translateY(-1rem);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
 .skip-link:focus {
@@ -103,15 +115,26 @@ button {
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(180deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     #030303;
-  background-size: 4.5rem 4.5rem, 4.5rem 4.5rem, auto;
+  background-size:
+    4.5rem 4.5rem,
+    4.5rem 4.5rem,
+    auto;
 }
 
 .spotlight {
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(circle at var(--px) var(--py), rgba(244, 241, 232, 0.16), transparent 14rem),
-    radial-gradient(circle at calc(var(--px) + 18%) calc(var(--py) + 8%), rgba(143, 199, 255, 0.09), transparent 12rem);
+    radial-gradient(
+      circle at var(--px) var(--py),
+      rgba(244, 241, 232, 0.16),
+      transparent 14rem
+    ),
+    radial-gradient(
+      circle at calc(var(--px) + 18%) calc(var(--py) + 8%),
+      rgba(143, 199, 255, 0.09),
+      transparent 12rem
+    );
   mix-blend-mode: screen;
   opacity: 0.9;
   transition: opacity 500ms var(--ease);
@@ -128,17 +151,35 @@ button {
   background-image:
     radial-gradient(rgba(255, 255, 255, 0.22) 0.8px, transparent 0.8px),
     radial-gradient(rgba(255, 255, 255, 0.14) 0.7px, transparent 0.7px);
-  background-position: 0 0, 0.85rem 0.55rem;
-  background-size: 0.22rem 0.22rem, 0.31rem 0.31rem;
+  background-position:
+    0 0,
+    0.85rem 0.55rem;
+  background-size:
+    0.22rem 0.22rem,
+    0.31rem 0.31rem;
   transform: translate3d(0, var(--scroll-shift), 0);
 }
 
 .scratch-layer {
   opacity: 0.18;
   background:
-    linear-gradient(103deg, transparent 0 24%, rgba(255, 255, 255, 0.18) 24.1% 24.25%, transparent 24.35% 100%),
-    linear-gradient(84deg, transparent 0 64%, rgba(255, 255, 255, 0.12) 64.1% 64.2%, transparent 64.35% 100%),
-    repeating-linear-gradient(0deg, transparent 0 0.42rem, rgba(255, 255, 255, 0.035) 0.43rem 0.46rem);
+    linear-gradient(
+      103deg,
+      transparent 0 24%,
+      rgba(255, 255, 255, 0.18) 24.1% 24.25%,
+      transparent 24.35% 100%
+    ),
+    linear-gradient(
+      84deg,
+      transparent 0 64%,
+      rgba(255, 255, 255, 0.12) 64.1% 64.2%,
+      transparent 64.35% 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 0.42rem,
+      rgba(255, 255, 255, 0.035) 0.43rem 0.46rem
+    );
   transform: translate3d(0, var(--scroll-shift-rev), 0);
 }
 
@@ -206,7 +247,11 @@ button {
   border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(244, 241, 232, 0.07), transparent 30%),
-    radial-gradient(circle at 50% 30%, rgba(244, 241, 232, 0.1), transparent 18rem),
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(244, 241, 232, 0.1),
+      transparent 18rem
+    ),
     rgba(255, 255, 255, 0.025);
   box-shadow: var(--shadow);
   backface-visibility: hidden;
@@ -225,8 +270,18 @@ button {
 .hero-face::before {
   z-index: -1;
   background:
-    linear-gradient(135deg, transparent 0 45%, rgba(216, 179, 95, 0.1) 45.2% 45.55%, transparent 45.8%),
-    linear-gradient(20deg, transparent 0 68%, rgba(255, 255, 255, 0.08) 68.2% 68.35%, transparent 68.6%);
+    linear-gradient(
+      135deg,
+      transparent 0 45%,
+      rgba(216, 179, 95, 0.1) 45.2% 45.55%,
+      transparent 45.8%
+    ),
+    linear-gradient(
+      20deg,
+      transparent 0 68%,
+      rgba(255, 255, 255, 0.08) 68.2% 68.35%,
+      transparent 68.6%
+    );
   animation: cardSheen 7s ease-in-out infinite alternate;
 }
 
@@ -239,8 +294,16 @@ button {
 .hero-back {
   align-content: start;
   background:
-    linear-gradient(180deg, rgba(216, 179, 95, 0.11), rgba(244, 241, 232, 0.028)),
-    radial-gradient(circle at 15% 20%, rgba(244, 241, 232, 0.1), transparent 13rem),
+    linear-gradient(
+      180deg,
+      rgba(216, 179, 95, 0.11),
+      rgba(244, 241, 232, 0.028)
+    ),
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(244, 241, 232, 0.1),
+      transparent 13rem
+    ),
     #10100f;
   overflow-y: auto;
   scrollbar-width: none;
@@ -330,7 +393,7 @@ button {
 .hero-copy {
   max-width: 23rem;
   min-height: 3.2rem;
-  margin: 1rem 0 0;
+  margin: 2rem 0 0;
   color: var(--paper);
   font-size: 1.05rem;
   font-weight: 650;
@@ -379,8 +442,16 @@ button {
 
 .ink-button {
   background:
-    radial-gradient(circle at var(--mx) var(--my), rgba(216, 179, 95, 0.35), transparent 7rem),
-    linear-gradient(135deg, rgba(244, 241, 232, 0.18), rgba(244, 241, 232, 0.04));
+    radial-gradient(
+      circle at var(--mx) var(--my),
+      rgba(216, 179, 95, 0.35),
+      transparent 12rem
+    ),
+    linear-gradient(
+      135deg,
+      rgba(244, 241, 232, 0.18),
+      rgba(244, 241, 232, 0.04)
+    );
 }
 
 .ink-button::before,
@@ -388,12 +459,28 @@ button {
 .hold-button::before {
   content: "";
   position: absolute;
-  inset: -70%;
-  background: conic-gradient(from 110deg, transparent, rgba(244, 241, 232, 0.22), transparent 38%);
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(216, 179, 95, 0.24),
+      rgba(244, 241, 232, 0.12) 36%,
+      transparent 68%
+    ),
+    conic-gradient(
+      from 110deg,
+      transparent,
+      rgba(244, 241, 232, 0.24),
+      transparent 40%
+    );
   opacity: 0.68;
-  transform: rotate(0deg);
+  transform: translate(-50%, -50%) rotate(0deg);
   transition: opacity 240ms var(--ease);
-  animation: liquidSweep 7s linear infinite;
+  animation: buttonOrbitSweep 7s linear infinite;
 }
 
 .ink-button span,
@@ -405,7 +492,12 @@ button {
 
 .ghost-button {
   background:
-    linear-gradient(120deg, transparent 0 44%, rgba(244, 241, 232, 0.08) 44.4% 44.8%, transparent 45.2%),
+    linear-gradient(
+      120deg,
+      transparent 0 44%,
+      rgba(244, 241, 232, 0.08) 44.4% 44.8%,
+      transparent 45.2%
+    ),
     rgba(244, 241, 232, 0.028);
 }
 
@@ -520,7 +612,11 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(244, 241, 232, 0.075), rgba(244, 241, 232, 0.022)),
+    linear-gradient(
+      180deg,
+      rgba(244, 241, 232, 0.075),
+      rgba(244, 241, 232, 0.022)
+    ),
     var(--panel);
   box-shadow: 0 18px 65px rgba(0, 0, 0, 0.58);
 }
@@ -530,8 +626,17 @@ button {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(216, 179, 95, 0.16), transparent 11rem),
-    linear-gradient(120deg, transparent 0 68%, rgba(244, 241, 232, 0.08) 68.2% 68.45%, transparent 68.6%);
+    radial-gradient(
+      circle at var(--mx, 50%) var(--my, 30%),
+      rgba(216, 179, 95, 0.16),
+      transparent 11rem
+    ),
+    linear-gradient(
+      120deg,
+      transparent 0 68%,
+      rgba(244, 241, 232, 0.08) 68.2% 68.45%,
+      transparent 68.6%
+    );
   opacity: 0;
   transition: opacity 260ms var(--ease);
 }
@@ -543,7 +648,7 @@ button {
 .carousel-shell {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .carousel-head {
@@ -569,7 +674,11 @@ button {
   border: 1px solid var(--line);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 20% 20%, rgba(216, 179, 95, 0.18), transparent 5rem),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(216, 179, 95, 0.18),
+      transparent 5rem
+    ),
     rgba(244, 241, 232, 0.035);
   color: var(--paper);
   cursor: pointer;
@@ -588,7 +697,12 @@ button {
   content: "";
   position: absolute;
   inset: -80%;
-  background: conic-gradient(from 70deg, transparent, rgba(244, 241, 232, 0.32), transparent 34%);
+  background: conic-gradient(
+    from 70deg,
+    transparent,
+    rgba(244, 241, 232, 0.32),
+    transparent 34%
+  );
   opacity: 0;
   transition: opacity 220ms var(--ease);
   animation: liquidSweep 7s linear infinite;
@@ -609,12 +723,12 @@ button {
 .loadout-carousel {
   display: flex;
   gap: 1rem;
-  margin-inline: -1rem;
+  margin-inline: calc(-1rem - 0.65rem);
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  padding: 1rem;
+  padding: 4rem 1.65rem 1.35rem;
   perspective: 1200px;
-  scroll-padding-inline: 1rem;
+  scroll-padding-inline: 1.65rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -666,7 +780,8 @@ button {
 .loadout-card.reveal-card.is-visible:active {
   --lift: -0.35rem;
   filter: drop-shadow(0 0 24px rgba(216, 179, 95, 0.24));
-  transform: translate3d(0, var(--lift), 0) rotate(calc(var(--tilt) * -1)) rotateX(4deg);
+  transform: translate3d(0, var(--lift), 0) rotate(calc(var(--tilt) * -1))
+    rotateX(4deg);
 }
 
 .card-flip {
@@ -690,8 +805,16 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(145deg, rgba(244, 241, 232, 0.1), rgba(244, 241, 232, 0.018)),
-    radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(216, 179, 95, 0.14), transparent 11rem),
+    linear-gradient(
+      145deg,
+      rgba(244, 241, 232, 0.1),
+      rgba(244, 241, 232, 0.018)
+    ),
+    radial-gradient(
+      circle at var(--mx, 50%) var(--my, 30%),
+      rgba(216, 179, 95, 0.14),
+      transparent 11rem
+    ),
     #101010;
   box-shadow: 0 18px 65px rgba(0, 0, 0, 0.58);
   backface-visibility: hidden;
@@ -703,16 +826,27 @@ button {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(118deg, transparent 0 58%, rgba(244, 241, 232, 0.1) 58.2% 58.45%, transparent 58.7%),
+    linear-gradient(
+      118deg,
+      transparent 0 58%,
+      rgba(244, 241, 232, 0.1) 58.2% 58.45%,
+      transparent 58.7%
+    ),
     radial-gradient(rgba(255, 255, 255, 0.14) 0.8px, transparent 0.8px);
-  background-size: auto, 0.28rem 0.28rem;
+  background-size:
+    auto,
+    0.28rem 0.28rem;
   opacity: 0.18;
   pointer-events: none;
 }
 
 .card-back {
   background:
-    linear-gradient(145deg, rgba(216, 179, 95, 0.12), rgba(244, 241, 232, 0.026)),
+    linear-gradient(
+      145deg,
+      rgba(216, 179, 95, 0.12),
+      rgba(244, 241, 232, 0.026)
+    ),
     #12110f;
   transform: rotateY(180deg);
 }
@@ -753,7 +887,11 @@ button {
   border: 1px solid rgba(244, 241, 232, 0.32);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 50% 50%, rgba(216, 179, 95, 0.22), transparent 5rem),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(216, 179, 95, 0.22),
+      transparent 5rem
+    ),
     rgba(244, 241, 232, 0.035);
   color: var(--white);
   cursor: pointer;
@@ -801,7 +939,9 @@ button {
   border-radius: inherit;
   background: linear-gradient(90deg, var(--gold), var(--paper));
   transform: translateX(0);
-  transition: transform 240ms var(--ease), width 240ms var(--ease);
+  transition:
+    transform 240ms var(--ease),
+    width 240ms var(--ease);
 }
 
 .card-feedback,
@@ -882,7 +1022,11 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    radial-gradient(circle at 50% 50%, rgba(244, 241, 232, 0.12), transparent 34%),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(244, 241, 232, 0.12),
+      transparent 34%
+    ),
     #070707;
 }
 
@@ -921,7 +1065,11 @@ button {
   position: absolute;
   inset: auto 0 0;
   height: 100%;
-  background: linear-gradient(90deg, rgba(216, 179, 95, 0.28), rgba(143, 199, 255, 0.18));
+  background: linear-gradient(
+    90deg,
+    rgba(216, 179, 95, 0.28),
+    rgba(143, 199, 255, 0.18)
+  );
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -1006,6 +1154,12 @@ button {
   }
 }
 
+@keyframes buttonOrbitSweep {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 @keyframes cardSheen {
   from {
     opacity: 0.55;
@@ -1027,7 +1181,8 @@ button {
 
   50% {
     opacity: 0.58;
-    transform: translate3d(0.5rem, -0.75rem, 0) rotate(calc(var(--r, 0deg) + 8deg));
+    transform: translate3d(0.5rem, -0.75rem, 0)
+      rotate(calc(var(--r, 0deg) + 8deg));
   }
 }
 
@@ -1068,7 +1223,8 @@ button {
 
   100% {
     opacity: 0;
-    transform: translate3d(var(--fall-x, 0), 108vh, 0) rotate(var(--rotation, 240deg));
+    transform: translate3d(var(--fall-x, 0), 108vh, 0)
+      rotate(var(--rotation, 240deg));
   }
 }
 
