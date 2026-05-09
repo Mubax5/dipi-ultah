@@ -15,6 +15,7 @@
   const heroMessage = document.querySelector("#heroMessage");
   const openMessage = document.querySelector("#openMessage");
   const closeMessage = document.querySelector("#closeMessage");
+  const birthdayTrack = document.querySelector("#birthdayTrack");
   const loadoutCarousel = document.querySelector("#loadoutCarousel");
   const carouselPrev = document.querySelector("#carouselPrev");
   const carouselNext = document.querySelector("#carouselNext");
@@ -67,6 +68,41 @@
   ];
 
   const randomBetween = (min, max) => Math.random() * (max - min) + min;
+  let musicStarted = false;
+
+  function startBirthdayTrack() {
+    if (!birthdayTrack || musicStarted) return Promise.resolve(false);
+
+    birthdayTrack.volume = 1;
+    birthdayTrack.muted = false;
+
+    return birthdayTrack
+      .play()
+      .then(() => {
+        musicStarted = true;
+        return true;
+      })
+      .catch(() => false);
+  }
+
+  function setupAutoplayMusic() {
+    if (!birthdayTrack) return;
+
+    startBirthdayTrack();
+
+    const unlock = () => {
+      startBirthdayTrack().then((started) => {
+        if (!started) return;
+        window.removeEventListener("pointerdown", unlock);
+        window.removeEventListener("keydown", unlock);
+        window.removeEventListener("touchstart", unlock);
+      });
+    };
+
+    window.addEventListener("pointerdown", unlock, { passive: true });
+    window.addEventListener("keydown", unlock);
+    window.addEventListener("touchstart", unlock, { passive: true });
+  }
 
   function setupTypewriter() {
     if (!typeTarget) return;
@@ -364,6 +400,7 @@
   function igniteVibes() {
     document.body.classList.add("vibes-on");
     if (vibeText) vibeText.textContent = "Hari ini buat Dipi. Enjoy the new level.";
+    startBirthdayTrack();
     launchConfetti();
   }
 
@@ -415,6 +452,7 @@
   }
 
   setupTypewriter();
+  setupAutoplayMusic();
   buildDust();
   setupScrollReveal();
   setupParallax();

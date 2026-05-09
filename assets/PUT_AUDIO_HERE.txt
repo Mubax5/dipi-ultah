@@ -1,0 +1,5 @@
+Place the licensed audio file here:
+
+assets/everything-u-are-hindia.mp3
+
+Browsers can block unmuted autoplay. The script tries autoplay immediately, then retries on the first tap/key press and when the vibes button is pressed.
