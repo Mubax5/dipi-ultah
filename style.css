@@ -169,7 +169,7 @@ button {
   width: 100%;
   min-height: 100svh;
   place-items: center;
-  padding: 3.25rem 1rem 2rem;
+  padding: 2.25rem 1rem 1.5rem;
   overflow: hidden;
 }
 
@@ -178,7 +178,7 @@ button {
   width: 100%;
   max-width: 20.5rem;
   min-width: 0;
-  min-height: min(42rem, calc(100svh - 4.5rem));
+  min-height: min(29rem, calc(100svh - 3.5rem));
   border: 0;
   border-radius: 8px;
   perspective: 1300px;
@@ -211,7 +211,7 @@ button {
   box-shadow: var(--shadow);
   backface-visibility: hidden;
   isolation: isolate;
-  padding: 3.5rem 1.1rem 2rem;
+  padding: 3rem 1rem 1.35rem;
 }
 
 .hero-face::before,
@@ -330,7 +330,7 @@ button {
 .hero-copy {
   max-width: 23rem;
   min-height: 3.2rem;
-  margin: 1.2rem 0 0;
+  margin: 1rem 0 0;
   color: var(--paper);
   font-size: 1.05rem;
   font-weight: 650;
@@ -341,7 +341,7 @@ button {
   gap: 0.75rem;
   justify-self: stretch;
   max-width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 1.05rem;
 }
 
 .ink-button,
@@ -410,7 +410,7 @@ button {
 }
 
 .hero-button {
-  min-height: 3.55rem;
+  min-height: 3.05rem;
   box-shadow:
     inset 0 0 0 1px rgba(244, 241, 232, 0.06),
     0 16px 40px rgba(0, 0, 0, 0.32);
@@ -496,13 +496,13 @@ button {
 .hero-message-copy {
   position: relative;
   z-index: 1;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  line-height: 1.42;
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.34;
 }
 
 .hero-message-copy p {
-  margin: 0 0 0.68rem;
+  margin: 0 0 0.55rem;
 }
 
 .hero-message-copy p:last-child {
@@ -511,7 +511,7 @@ button {
 
 .close-message {
   align-self: end;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
 }
 
 .ignite-panel {
@@ -1085,11 +1085,11 @@ button {
 
   .hero-poster {
     max-width: 46rem;
-    min-height: 40rem;
+    min-height: 33.5rem;
   }
 
   .hero-face {
-    padding: 4.5rem 1.7rem 2.4rem;
+    padding: 4rem 1.7rem 2rem;
   }
 
   .hero-title strong {
@@ -1132,11 +1132,11 @@ button {
 @media (min-width: 68rem) {
   .hero-poster {
     max-width: 64rem;
-    min-height: 42rem;
+    min-height: 35.5rem;
   }
 
   .hero-face {
-    padding: 5.4rem 2.4rem 3rem;
+    padding: 4.7rem 2.4rem 2.4rem;
   }
 
   .hero-title strong {
